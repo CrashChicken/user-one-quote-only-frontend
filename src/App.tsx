@@ -1,9 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import FrontPage from "./pages/Home";
+import LoginPage from "./pages/Login";
+import RegisterPage from "./pages/Register";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 
-function App() {
+const App: React.FC = () => {
   return (
+    <Router>
+      <Header />
+      <Switch>
+        <Route path="/login">
+          <LoginPage />
+        </Route>
+        <Route path="/register">
+          <RegisterPage />
+        </Route>
+        <Route path="/">
+          <FrontPage />
+        </Route>
+      </Switch>
+      <Footer />
+    </Router>
+  );
+  /*return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
@@ -20,7 +42,7 @@ function App() {
         </a>
       </header>
     </div>
-  );
-}
+  );*/
+};
 
 export default App;
