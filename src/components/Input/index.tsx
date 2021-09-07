@@ -20,7 +20,7 @@ const Input: React.FC<InputProps> = ({
       <label htmlFor={name}>{label}</label>
       <br />
       <input
-        className="rounded-full border-2 border-primary px-4 py-2 text-dark outline-none w-full"
+        className="rounded-full border-2 border-primary px-6 text-dark outline-none w-full h-11"
         type={type}
         id={id}
         name={name}

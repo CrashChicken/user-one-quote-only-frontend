@@ -10,7 +10,7 @@ import Header from "./components/Header";
 const App: React.FC = () => {
   return (
     <Router>
-      <Header />
+      <Header firstname="Jan" surname="Gradič" />
       <Switch>
         <Route path="/login">
           <LoginPage />

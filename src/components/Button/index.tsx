@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function getClassName(alternative?: boolean, className?: string): string {
   return (
-    "grid items-center inline-block rounded-full text-center px-8 cursor-pointer h-10 " +
+    "grid items-center inline-block rounded-full text-center px-8 cursor-pointer h-11 whitespace-nowrap " +
     (alternative
       ? "border-2 border-primary text-primary bg-white box-border "
       : "bg-gradient-to-r from-primary to-secondary text-white ") +

@@ -3,9 +3,20 @@ import Input from "../../components/Input";
 import { SubmitButton } from "../../components/Button";
 import BackgroundgLogo from "./backgroundLogo.svg";
 
+/*
+<img
+        className="bg-left-bottom md:visible invisible"
+        src={BackgroundgLogo}
+        alt="Background logo"
+      />
+*/
+
 const LoginPage: React.FC = () => {
   return (
-    <div className="flex justify-center items-center flex-col text-center p-4">
+    <div
+      className="flex justify-center items-center flex-col text-center p-4 bg-no-repeat bg-left-bottom"
+      style={{ backgroundImage: `url(${BackgroundgLogo})` }}
+    >
       <div className="max-w-lg">
         <h1 className="text-dark text-6xl mb-3">
           Welcome <span className="text-primary">back!</span>
@@ -31,17 +42,12 @@ const LoginPage: React.FC = () => {
             placeholder="password"
           />
           <SubmitButton
-            className="w-full mt-2"
+            className="w-full mt-4"
             value="Login"
-            alternative={false}
+            alternative={true}
           />
         </form>
       </div>
-      <img
-        className="fixed bottom-0 left-0 md:visible invisible"
-        src={BackgroundgLogo}
-        alt="Background logo"
-      />
     </div>
   );
 };
