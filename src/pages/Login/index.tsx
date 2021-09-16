@@ -1,6 +1,6 @@
 import React from "react";
-import Input from "../../components/Input";
-import { SubmitButton } from "../../components/Button";
+import Input from "../../components/common/input";
+import { SubmitButton } from "../../components/common/button";
 import BackgroundgLogo from "./backgroundLogo.svg";
 
 /*

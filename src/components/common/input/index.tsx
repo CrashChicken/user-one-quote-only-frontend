@@ -2,10 +2,11 @@ import React from "react";
 
 interface InputProps {
   label: string;
-  type: string;
+  type?: string;
   id: string;
   name: string;
-  placeholder: string;
+  placeholder?: string;
+  className?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -14,13 +15,14 @@ const Input: React.FC<InputProps> = ({
   id,
   name,
   placeholder,
+  className,
 }) => {
   return (
-    <div className="text-left mb-2 w-full">
+    <div className={"text-left mb-2 w-full " + className}>
       <label htmlFor={name}>{label}</label>
       <br />
       <input
-        className="rounded-full border-2 border-primary px-6 text-dark outline-none w-full h-11"
+        className="rounded-full border-2 border-primary px-6 text-dark outline-none w-full h-11 mt-2"
         type={type}
         id={id}
         name={name}

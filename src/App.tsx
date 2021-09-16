@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import FrontPage from "./pages/Home";
-import LoginPage from "./pages/Login";
-import RegisterPage from "./pages/Register";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
+import FrontPage from "./pages/home";
+import LoginPage from "./pages/login";
+import RegisterPage from "./pages/register";
+import Footer from "./components/common/footer";
+import Header from "./components/common/header";
 
 const App: React.FC = () => {
   return (

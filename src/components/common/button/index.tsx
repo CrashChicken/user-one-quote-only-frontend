@@ -37,7 +37,7 @@ LinkButton.defaultProps = {
 
 interface SubmitButtonProps {
   value: string;
-  alternative: boolean;
+  alternative?: boolean;
   className?: string;
 }
 
