@@ -3,11 +3,11 @@ import Input from "../components/common/Input";
 import { SubmitButton } from "../components/common/Button";
 import BackgroundgLogo from "../assets/backgroundLogo.svg";
 import { login } from "../api/quotesApi";
-import { LoginContext } from "../Contexts/LoginContext";
+import { useAuth } from "../contexts/AuthContext";
 import { Redirect } from "react-router-dom";
 
 const LoginPage: React.FC = () => {
-  const { setJwt } = useContext(LoginContext);
+  const { setJwt } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,6 +27,7 @@ const LoginPage: React.FC = () => {
     e.preventDefault();
     setIsLoading(true);
     setIsError(false);
+
     login({ username: email, password })
       .then(({ access_token }) => {
         setJwt(access_token);

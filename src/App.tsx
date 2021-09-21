@@ -6,13 +6,11 @@ import LoginPage from "./pages/login";
 import RegisterPage from "./pages/register";
 import Footer from "./components/common/Footer";
 import Header from "./components/common/Header";
-import { LoginContext } from "./Contexts/LoginContext";
+import AuthContextProvider from "./contexts/AuthContext";
 
 const App: React.FC = () => {
-  const [jwt, setJwt] = useState("");
-
   return (
-    <LoginContext.Provider value={{ jwt, setJwt }}>
+    <AuthContextProvider>
       <Router>
         <Header firstname="Jan" surname="Gradič" />
         <Switch>
@@ -28,7 +26,7 @@ const App: React.FC = () => {
         </Switch>
         <Footer />
       </Router>
-    </LoginContext.Provider>
+    </AuthContextProvider>
   );
 };
 
