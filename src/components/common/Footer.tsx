@@ -1,5 +1,5 @@
 import React from "react";
-import ReactLogo from "./footerLogo.svg";
+import ReactLogo from "../../assets/footerLogo.svg";
 // fixed bottom-0 w-full
 const Footer: React.FC = () => {
   return (

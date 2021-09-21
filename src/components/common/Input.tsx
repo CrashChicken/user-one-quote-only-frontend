@@ -7,6 +7,7 @@ interface InputProps {
   name: string;
   placeholder?: string;
   className?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -16,6 +17,7 @@ const Input: React.FC<InputProps> = ({
   name,
   placeholder,
   className,
+  onChange,
 }) => {
   return (
     <div className={"text-left mb-2 w-full " + className}>
@@ -27,6 +29,7 @@ const Input: React.FC<InputProps> = ({
         id={id}
         name={name}
         placeholder={placeholder}
+        onChange={onChange}
       />
     </div>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import HeaderLogo from "./assets/headerLogo.svg";
+import HeaderLogo from "../../../assets/headerLogo.svg";
 
 const Logo: React.FC = () => {
   return (

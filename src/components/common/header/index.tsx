@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { LinkButton } from "../button";
+import { LinkButton } from "../Button";
 import { Link, useRouteMatch } from "react-router-dom";
-import Logo from "./logo";
-import HamburgerMenu from "./assets/hamburgerMenu.svg";
-import Plus from "./assets/plus.svg";
-import IconX from "./assets/iconX.svg";
-import MobileMenuButton from "./mobileMenuButton";
-import MobileMenuLink from "./mobileMenuLink";
+import Logo from "./Logo";
+import HamburgerMenu from "../../../assets/hamburgerMenu.svg";
+import Plus from "../../../assets/plus.svg";
+import IconX from "../../../assets/iconX.svg";
+import MobileMenuButton from "./MobileMenuButton";
+import MobileMenuLink from "./MobileMenuLink";
 import CreateModal from "../CreateModal";
 import ProfileModal from "../ProfileModal";
 

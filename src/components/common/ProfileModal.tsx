@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import Backdrop from "../Backdrop";
-import Input from "../input";
-import { SubmitButton } from "../button";
+import React from "react";
+import Backdrop from "./Backdrop";
+import Input from "./Input";
+import { SubmitButton } from "./Button";
 
 interface ProfileModalProps {
   handleClose: () => void;
