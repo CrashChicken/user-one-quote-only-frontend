@@ -1,4 +1,10 @@
+<<<<<<< Updated upstream
 import React from "react";
+=======
+import React, { useEffect, useState } from "react";
+import { getMyQuote, updateMyQuote } from "../../api/quotesApi";
+import { useAuth } from "../../contexts/AuthContext";
+>>>>>>> Stashed changes
 import Backdrop from "./Backdrop";
 import { SubmitButton } from "./Button";
 
@@ -7,6 +13,37 @@ interface CreateModalProps {
 }
 
 const CreateModal: React.FC<CreateModalProps> = ({ handleClose }) => {
+<<<<<<< Updated upstream
+=======
+  const { jwt } = useAuth();
+  const [quote, setQuote] = useState("");
+  const [isLoadingError, setIsLoadingError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    getMyQuote(jwt)
+      .then(({ quote }) => setQuote(quote))
+      .catch(() => setIsLoadingError(true));
+  }, [jwt]);
+
+  function quoteSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    setIsLoading(true);
+    setIsError(false);
+
+    updateMyQuote({ quote }, jwt)
+      .then(() => {
+        handleClose();
+      })
+      .catch(() => {
+        setIsLoading(false);
+        setIsError(true);
+      });
+  }
+
+>>>>>>> Stashed changes
   return (
     <Backdrop onClick={handleClose}>
       <div
@@ -20,6 +57,7 @@ const CreateModal: React.FC<CreateModalProps> = ({ handleClose }) => {
           You can post one quote. You can delete it on your profile or edit in
           this window.
         </p>
+<<<<<<< Updated upstream
         <textarea
           className="rounded-2xl border-2 border-primary text-dark outline-none w-full resize-none px-4 py-2 mb-6 h-40"
           id="quote"
@@ -31,6 +69,30 @@ const CreateModal: React.FC<CreateModalProps> = ({ handleClose }) => {
           <SubmitButton value="Submit" className="mr-8" />
           <button onClick={handleClose}>Cancel</button>
         </div>
+=======
+        <form onSubmit={quoteSubmit}>
+          <textarea
+            className="rounded-2xl border-2 border-primary text-dark outline-none w-full resize-none px-4 py-2 h-40"
+            id="quote"
+            name="quote"
+            cols={6}
+            maxLength={300}
+            onChange={(e) => setQuote(e.target.value)}
+            value={quote}
+          />
+          {isLoadingError && (
+            <p className="text-red-500 mt-2">Couldn't load current quote</p>
+          )}
+          {isLoading && <p className="text-primary mt-2">Loading ...</p>}
+          {isError && (
+            <p className="text-red-500 mt-2">Couldn't save your quote</p>
+          )}
+          <div className="flex mt-6">
+            <SubmitButton value="Submit" className="mr-8" />
+            <button onClick={handleClose}>Cancel</button>
+          </div>
+        </form>
+>>>>>>> Stashed changes
       </div>
     </Backdrop>
   );

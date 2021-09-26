@@ -1,13 +1,25 @@
+<<<<<<< Updated upstream
 import React, { useState, useContext } from "react";
 import Input from "../components/common/Input";
 import { SubmitButton } from "../components/common/Button";
 import BackgroundgLogo from "../assets/backgroundLogo.svg";
 import { login } from "../api/quotesApi";
+=======
+import React, { useState } from "react";
+import Input from "../components/common/Input";
+import { SubmitButton } from "../components/common/Button";
+import BackgroundgLogo from "../assets/backgroundLogo.svg";
+import { login, getMe } from "../api/quotesApi";
+>>>>>>> Stashed changes
 import { useAuth } from "../contexts/AuthContext";
 import { Redirect } from "react-router-dom";
 
 const LoginPage: React.FC = () => {
+<<<<<<< Updated upstream
   const { setJwt } = useAuth();
+=======
+  const { setJwt, setUserId, setFirstName, setLastName } = useAuth();
+>>>>>>> Stashed changes
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,7 +35,11 @@ const LoginPage: React.FC = () => {
     setPassword(e.target.value);
   }
 
+<<<<<<< Updated upstream
   function loginSubmit(e: React.MouseEvent<HTMLFormElement, MouseEvent>) {
+=======
+  function loginSubmit(e: React.FormEvent<HTMLFormElement>) {
+>>>>>>> Stashed changes
     e.preventDefault();
     setIsLoading(true);
     setIsError(false);
@@ -31,7 +47,22 @@ const LoginPage: React.FC = () => {
     login({ username: email, password })
       .then(({ access_token }) => {
         setJwt(access_token);
+<<<<<<< Updated upstream
         setRedirect(true);
+=======
+
+        getMe(access_token)
+          .then(({ id, firstName, lastName }) => {
+            setUserId(id);
+            setFirstName(firstName);
+            setLastName(lastName);
+            setRedirect(true);
+          })
+          .catch(() => {
+            setIsLoading(false);
+            setIsError(true);
+          });
+>>>>>>> Stashed changes
       })
       .catch(() => {
         setIsLoading(false);
@@ -46,7 +77,11 @@ const LoginPage: React.FC = () => {
     >
       {redirect && <Redirect to="/" />}
       <div className="max-w-lg">
+<<<<<<< Updated upstream
         <h1 className="text-dark text-6xl mb-3">
+=======
+        <h1 className="text-dark text-5xl mb-3">
+>>>>>>> Stashed changes
           Welcome <span className="text-primary">back!</span>
         </h1>
         <p className="text-dark text-xl mb-5">
