@@ -1,10 +1,6 @@
-<<<<<<< Updated upstream
-import React from "react";
-=======
 import React, { useEffect, useState } from "react";
 import { getMyQuote, updateMyQuote } from "../../api/quotesApi";
 import { useAuth } from "../../contexts/AuthContext";
->>>>>>> Stashed changes
 import Backdrop from "./Backdrop";
 import { SubmitButton } from "./Button";
 
@@ -13,8 +9,6 @@ interface CreateModalProps {
 }
 
 const CreateModal: React.FC<CreateModalProps> = ({ handleClose }) => {
-<<<<<<< Updated upstream
-=======
   const { jwt } = useAuth();
   const [quote, setQuote] = useState("");
   const [isLoadingError, setIsLoadingError] = useState(false);
@@ -43,7 +37,6 @@ const CreateModal: React.FC<CreateModalProps> = ({ handleClose }) => {
       });
   }
 
->>>>>>> Stashed changes
   return (
     <Backdrop onClick={handleClose}>
       <div
@@ -57,19 +50,6 @@ const CreateModal: React.FC<CreateModalProps> = ({ handleClose }) => {
           You can post one quote. You can delete it on your profile or edit in
           this window.
         </p>
-<<<<<<< Updated upstream
-        <textarea
-          className="rounded-2xl border-2 border-primary text-dark outline-none w-full resize-none px-4 py-2 mb-6 h-40"
-          id="quote"
-          name="quote"
-          cols={6}
-          maxLength={300}
-        />
-        <div className="flex">
-          <SubmitButton value="Submit" className="mr-8" />
-          <button onClick={handleClose}>Cancel</button>
-        </div>
-=======
         <form onSubmit={quoteSubmit}>
           <textarea
             className="rounded-2xl border-2 border-primary text-dark outline-none w-full resize-none px-4 py-2 h-40"
@@ -92,7 +72,6 @@ const CreateModal: React.FC<CreateModalProps> = ({ handleClose }) => {
             <button onClick={handleClose}>Cancel</button>
           </div>
         </form>
->>>>>>> Stashed changes
       </div>
     </Backdrop>
   );

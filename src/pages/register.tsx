@@ -1,11 +1,3 @@
-<<<<<<< Updated upstream
-import React from "react";
-
-const RegisterPage: React.FC = () => {
-  return (
-    <div>
-      <h1>Register page</h1>
-=======
 import React, { useState } from "react";
 import Input from "../components/common/Input";
 import { SubmitButton } from "../components/common/Button";
@@ -122,7 +114,6 @@ const RegisterPage: React.FC = () => {
           </Link>
         </div>
       </div>
->>>>>>> Stashed changes
     </div>
   );
 };

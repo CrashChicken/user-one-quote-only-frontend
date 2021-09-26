@@ -8,12 +8,9 @@ interface InputProps {
   placeholder?: string;
   className?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-<<<<<<< Updated upstream
-=======
   required?: boolean;
   disabled?: boolean;
   value?: any;
->>>>>>> Stashed changes
 }
 
 const Input: React.FC<InputProps> = ({
@@ -24,12 +21,9 @@ const Input: React.FC<InputProps> = ({
   placeholder,
   className,
   onChange,
-<<<<<<< Updated upstream
-=======
   required,
   disabled,
   value,
->>>>>>> Stashed changes
 }) => {
   return (
     <div className={"text-left mb-2 w-full " + className}>
@@ -42,12 +36,9 @@ const Input: React.FC<InputProps> = ({
         name={name}
         placeholder={placeholder}
         onChange={onChange}
-<<<<<<< Updated upstream
-=======
         required={required}
         disabled={disabled}
         value={value}
->>>>>>> Stashed changes
       />
     </div>
   );

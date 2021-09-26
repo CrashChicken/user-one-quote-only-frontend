@@ -1,24 +1,15 @@
-<<<<<<< Updated upstream
-import React from "react";
-import Backdrop from "./Backdrop";
-import Input from "./Input";
-import { SubmitButton } from "./Button";
-=======
 import React, { useEffect, useState } from "react";
 import Backdrop from "./Backdrop";
 import Input from "./Input";
 import { SubmitButton } from "./Button";
 import { getMe, updatePassword } from "../../api/quotesApi";
 import { useAuth } from "../../contexts/AuthContext";
->>>>>>> Stashed changes
 
 interface ProfileModalProps {
   handleClose: () => void;
 }
 
 const ProfileModal: React.FC<ProfileModalProps> = ({ handleClose }) => {
-<<<<<<< Updated upstream
-=======
   const { jwt } = useAuth();
 
   const [email, setEmail] = useState("");
@@ -51,7 +42,6 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ handleClose }) => {
         setIsError(true);
       });
   }
->>>>>>> Stashed changes
   return (
     <Backdrop onClick={handleClose}>
       <div
@@ -62,29 +52,6 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ handleClose }) => {
           Profile <span className="text-primary">settings.</span>
         </h1>
         <p className="mb-6">Change your profile settings</p>
-<<<<<<< Updated upstream
-        <Input type="email" label="Email" id="email" name="email" />
-        <div className="flex">
-          <Input
-            label="First name"
-            id="firstname"
-            name="firstname"
-            className="mr-4"
-          />
-          <Input label="Last name" id="lastname" name="lastname" />
-        </div>
-        <Input type="password" label="Password" id="password" name="password" />
-        <Input
-          type="password"
-          label="Confirm password"
-          id="c_password"
-          name="c_password"
-        />
-        <div className="flex mt-4">
-          <SubmitButton value="Submit" className="mr-8" />
-          <button onClick={handleClose}>Cancel</button>
-        </div>
-=======
         <form onSubmit={profileSubmit}>
           <Input
             type="email"
@@ -139,7 +106,6 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ handleClose }) => {
             <button onClick={handleClose}>Cancel</button>
           </div>
         </form>
->>>>>>> Stashed changes
       </div>
     </Backdrop>
   );
