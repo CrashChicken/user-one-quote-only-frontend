@@ -34,8 +34,25 @@ interface GetMeRes {
   lastName: string;
 }
 
+export interface QuoteRes {
+  id: number;
+  quote: string;
+  karma: number;
+  user: UserRes;
+}
+
+interface GetUserRes {
+  quote: QuoteRes;
+  votes: [QuoteRes];
+}
+
 interface LoginRes {
   access_token: string;
+}
+
+interface VoteCheckRes {
+  userId: number;
+  vote: number;
 }
 
 export const register = (user: Register) =>
@@ -54,7 +71,17 @@ export const getMyQuote = (token: string): Promise<QuoteRes> =>
     .get("/myquote", { headers: { Authorization: `Bearer ${token}` } })
     .then((res) => res.data);
 
-export const updateMyQuote = (quote: Quote, token: string): Promise<QuoteRes> =>
+export const postMyQuote = (quote: Quote, token: string): Promise<MyQuoteRes> =>
+  api
+    .post("/myquote", quote, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res) => res.data);
+
+export const updateMyQuote = (
+  quote: Quote,
+  token: string
+): Promise<MyQuoteRes> =>
   api
     .put("/myquote", quote, { headers: { Authorization: `Bearer ${token}` } })
     .then((res) => res.data);
@@ -69,18 +96,41 @@ export const updatePassword = (password: UpdatePassword, token: string) =>
 export const getUser = (id: number) =>
   api.get(`/user/${id}/`).then((res) => res.data);
 
-export const upvoteUser = (id: number, token: string) =>
+export const upvoteUser = (id: number, token: string): Promise<QuoteRes> =>
   api
-    .put(`/user/${id}/upvote`, {
+    .put(
+      `/user/${id}/upvote`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
+    .then((res) => res.data);
+
+export const downvoteUser = (id: number, token: string): Promise<QuoteRes> =>
+  api
+    .put(
+      `/user/${id}/downvote`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
+    .then((res) => res.data);
+
+export const deleteVote = (id: number, token: string): Promise<QuoteRes> =>
+  api
+    .delete(`/user/${id}/vote`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((res) => res.data);
 
-export const downvoteUser = (id: number, token: string) =>
+export const voteCheck = (id: number, token: string): Promise<VoteCheckRes> =>
   api
-    .put(`/user/${id}/downvote`, {
+    .get(`/user/${id}/vote`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((res) => res.data);
 
-export const getList = () => api.get(`/list`).then((res) => res.data);
+export const getList = (): Promise<QuoteRes[]> =>
+  api.get(`/list`).then((res) => res.data);
