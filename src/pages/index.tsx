@@ -8,6 +8,7 @@ const FrontPage: React.FC = () => {
     <div>
       <h1>Front page</h1>
       <Link to="/login">Login page</Link>
+      <Link to="/profile">Profile page</Link>
       <p>{jwt}</p>
     </div>
   );

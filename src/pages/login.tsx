@@ -79,7 +79,6 @@ const LoginPage: React.FC = () => {
             type="password"
             id="password"
             name="password"
-            placeholder="password"
             onChange={handlePassword}
           />
           {isLoading && <p className="text-primary">Loading ...</p>}

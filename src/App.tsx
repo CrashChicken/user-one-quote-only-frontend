@@ -8,6 +8,7 @@ import Footer from "./components/common/Footer";
 import Header from "./components/common/Header";
 import AuthContextProvider from "./contexts/AuthContext";
 import ProfilePage from "./pages/profile";
+import NotFound from "./pages/notFound";
 
 const App: React.FC = () => {
   return (
@@ -15,17 +16,20 @@ const App: React.FC = () => {
       <Router>
         <Header />
         <Switch>
-          <Route path="/profile">
+          <Route path="/profile/:id">
             <ProfilePage />
           </Route>
-          <Route path="/login">
+          <Route exact path="/login">
             <LoginPage />
           </Route>
-          <Route path="/register">
+          <Route exact path="/register">
             <RegisterPage />
           </Route>
-          <Route path="/">
+          <Route exact path="/">
             <FrontPage />
+          </Route>
+          <Route path="*">
+            <NotFound />
           </Route>
         </Switch>
         <Footer />
