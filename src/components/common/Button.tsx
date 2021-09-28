@@ -63,15 +63,21 @@ interface ButtonProps {
   text: string;
   alternative?: boolean;
   className?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export const Button: React.FC<ButtonProps> = ({
   text,
   alternative,
   className,
+  onClick,
 }) => {
   return (
-    <button className={getClassName(alternative, className)} type="submit">
+    <button
+      className={getClassName(alternative, className)}
+      type="submit"
+      onClick={onClick}
+    >
       {text}
     </button>
   );

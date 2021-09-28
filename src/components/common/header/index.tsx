@@ -62,7 +62,11 @@ const Header: React.FC = () => {
           "md:flex flex-nowrap justify-between items-center p-8 hidden"
         }
       >
-        <Logo />
+        <Logo
+          alternative={
+            useRouteMatch({ path: "/profile/:id", exact: true }) ? true : false
+          }
+        />
         <div className="flex flex-row items-center">
           {!useRouteMatch({ path: "/register", exact: true }) && !firstName && (
             <LinkButton path="/register" text="Sign up" />

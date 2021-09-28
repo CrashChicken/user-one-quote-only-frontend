@@ -11,11 +11,27 @@ import VoteCard from "../components/common/VoteCard";
 const FrontPage: React.FC = () => {
   const { jwt } = useAuth();
 
-  const [userQuotes, setUserQuotes] = useState<QuoteRes[]>([]);
+  const [mostLikedQuotes, setMostLikedQuotes] = useState<QuoteRes[]>([]);
+  const [newestQuotes, setNewestQuotes] = useState<QuoteRes[]>([]);
+  const [currentPageKarma, setCurrentPageKarma] = useState(1);
+  const [currentPageNewest, setCurrentPageNewest] = useState(1);
 
   useEffect(() => {
-    getList().then((quotes) => setUserQuotes(quotes));
-  }, []);
+    setCurrentPageKarma(1);
+    getList("karma", currentPageKarma).then((quotes) => {
+      setMostLikedQuotes(quotes);
+      setCurrentPageKarma(currentPageKarma + 1);
+    });
+    if (jwt !== "") {
+      setCurrentPageNewest(1);
+      getList("newest", currentPageNewest).then((quotes) => {
+        setNewestQuotes(quotes);
+        setCurrentPageNewest(currentPageNewest + 1);
+      });
+    }
+  }, [jwt]);
+
+  function loadMore(list: string) {}
 
   if (jwt === "")
     return (
@@ -23,19 +39,19 @@ const FrontPage: React.FC = () => {
         <img
           src={TopRight}
           alt=""
-          className="absolute top-0 right-0 md:visible invisible select-none pointer-events-none"
+          className="fixed top-0 right-0 md:visible invisible select-none pointer-events-none"
           style={{ zIndex: -1 }}
         />
         <img
           src={Left}
           alt=""
-          className="absolute left-0 md:visible invisible select-none pointer-events-none"
+          className="fixed left-0 md:visible invisible select-none pointer-events-none"
           style={{ zIndex: -1 }}
         />
         <img
           src={Right}
           alt=""
-          className="absolute right-0 md:visible invisible select-none pointer-events-none"
+          className="fixed right-0 md:visible invisible select-none pointer-events-none"
           style={{ zIndex: -1 }}
         />
 
@@ -68,7 +84,7 @@ const FrontPage: React.FC = () => {
           </p>
         </div>
         <div className="w-full max-w-6xl mb-10">
-          <QuotesGrid quotes={userQuotes} />
+          <QuotesGrid quotes={mostLikedQuotes} />
         </div>
         <LinkButton
           path="/register"
@@ -84,19 +100,19 @@ const FrontPage: React.FC = () => {
         <img
           src={TopRight}
           alt=""
-          className="absolute top-0 right-0 md:visible invisible select-none pointer-events-none"
+          className="fixed top-0 right-0 md:visible invisible select-none pointer-events-none"
           style={{ zIndex: -1 }}
         />
         <img
           src={Left}
           alt=""
-          className="absolute left-0 md:visible invisible select-none pointer-events-none"
+          className="fixed left-0 md:visible invisible select-none pointer-events-none"
           style={{ zIndex: -1 }}
         />
         <img
           src={Right}
           alt=""
-          className="absolute right-0 md:visible invisible select-none pointer-events-none"
+          className="fixed right-0 md:visible invisible select-none pointer-events-none"
           style={{ zIndex: -1 }}
         />
 
@@ -105,13 +121,13 @@ const FrontPage: React.FC = () => {
           <p className="text-lg">Quote of the day is randomly choosen quote.</p>
         </div>
         <div className="w-full max-w-lg">
-          {userQuotes.length > 0 && (
+          {newestQuotes.length > 0 && (
             <VoteCard
-              userId={userQuotes[0].user.id}
-              quote={userQuotes[0].quote}
-              firstName={userQuotes[0].user.firstName}
-              lastName={userQuotes[0].user.lastName}
-              karma={userQuotes[0].karma}
+              userId={newestQuotes[0].user.id}
+              quote={newestQuotes[0].quote}
+              firstName={newestQuotes[0].user.firstName}
+              lastName={newestQuotes[0].user.lastName}
+              karma={newestQuotes[0].karma}
             />
           )}
         </div>
@@ -124,9 +140,13 @@ const FrontPage: React.FC = () => {
           </p>
         </div>
         <div className="w-full max-w-6xl mb-10">
-          <QuotesGrid quotes={userQuotes} />
+          <QuotesGrid quotes={mostLikedQuotes} />
         </div>
-        <Button text="Load more" alternative={true} />
+        <Button
+          text="Load more"
+          alternative={true}
+          onClick={() => loadMore("karma")}
+        />
 
         <div className="max-w-lg text-center mb-6 mt-32">
           <h2 className="text-primary text-3xl mb-2">Most recent quotes</h2>
@@ -136,9 +156,14 @@ const FrontPage: React.FC = () => {
           </p>
         </div>
         <div className="w-full max-w-6xl mb-10">
-          <QuotesGrid quotes={userQuotes} />
+          <QuotesGrid quotes={newestQuotes} />
         </div>
-        <Button text="Load more" alternative={true} className="mb-32" />
+        <Button
+          text="Load more"
+          alternative={true}
+          className="mb-32"
+          onClick={() => loadMore("newest")}
+        />
       </div>
     );
 };

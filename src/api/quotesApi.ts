@@ -140,5 +140,12 @@ export const voteCheck = (id: number, token: string): Promise<VoteCheckRes> =>
     })
     .then((res) => res.data);
 
-export const getList = (): Promise<QuoteRes[]> =>
-  api.get(`/list`).then((res) => res.data);
+export const getList = (sort: string, page: number): Promise<QuoteRes[]> =>
+  api
+    .get(`/list`, {
+      params: {
+        sort,
+        page,
+      },
+    })
+    .then((res) => res.data);
