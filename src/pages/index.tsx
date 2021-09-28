@@ -105,13 +105,15 @@ const FrontPage: React.FC = () => {
           <p className="text-lg">Quote of the day is randomly choosen quote.</p>
         </div>
         <div className="w-full max-w-lg">
-          <VoteCard
-            userId={userQuotes[0].user.id}
-            quote={userQuotes[0].quote}
-            firstName={userQuotes[0].user.firstName}
-            lastName={userQuotes[0].user.lastName}
-            karma={userQuotes[0].karma}
-          />
+          {userQuotes.length > 0 && (
+            <VoteCard
+              userId={userQuotes[0].user.id}
+              quote={userQuotes[0].quote}
+              firstName={userQuotes[0].user.firstName}
+              lastName={userQuotes[0].user.lastName}
+              karma={userQuotes[0].karma}
+            />
+          )}
         </div>
 
         <div className="max-w-lg text-center mb-6 mt-32">

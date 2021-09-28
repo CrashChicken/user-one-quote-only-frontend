@@ -22,12 +22,12 @@ interface UpdatePassword {
   password: string;
 }
 
-interface QuoteRes {
+interface MyQuoteRes {
   id: number;
   quote: string;
 }
 
-interface GetMeRes {
+interface UserRes {
   id: number;
   username: string;
   firstName: string;
@@ -39,6 +39,11 @@ export interface QuoteRes {
   quote: string;
   karma: number;
   user: UserRes;
+}
+
+interface MyQuoteRes {
+  id: number;
+  quote: string;
 }
 
 interface GetUserRes {
@@ -55,18 +60,18 @@ interface VoteCheckRes {
   vote: number;
 }
 
-export const register = (user: Register) =>
+export const register = (user: Register): Promise<UserRes> =>
   api.post("/register", user).then((res) => res.data);
 
 export const login = (user: Login): Promise<LoginRes> =>
   api.post("/login", user).then((res) => res.data);
 
-export const getMe = (token: string): Promise<GetMeRes> =>
+export const getMe = (token: string): Promise<UserRes> =>
   api
     .get("/me", { headers: { Authorization: `Bearer ${token}` } })
     .then((res) => res.data);
 
-export const getMyQuote = (token: string): Promise<QuoteRes> =>
+export const getMyQuote = (token: string): Promise<MyQuoteRes> =>
   api
     .get("/myquote", { headers: { Authorization: `Bearer ${token}` } })
     .then((res) => res.data);
@@ -86,14 +91,17 @@ export const updateMyQuote = (
     .put("/myquote", quote, { headers: { Authorization: `Bearer ${token}` } })
     .then((res) => res.data);
 
-export const updatePassword = (password: UpdatePassword, token: string) =>
+export const updatePassword = (
+  password: UpdatePassword,
+  token: string
+): Promise<UserRes> =>
   api
     .put("/me/update-password", password, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((res) => res.data);
 
-export const getUser = (id: number) =>
+export const getUser = (id: number): Promise<GetUserRes> =>
   api.get(`/user/${id}/`).then((res) => res.data);
 
 export const upvoteUser = (id: number, token: string): Promise<QuoteRes> =>
