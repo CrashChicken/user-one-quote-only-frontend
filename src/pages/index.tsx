@@ -17,21 +17,31 @@ const FrontPage: React.FC = () => {
   const [currentPageNewest, setCurrentPageNewest] = useState(1);
 
   useEffect(() => {
-    setCurrentPageKarma(1);
-    getList("karma", currentPageKarma).then((quotes) => {
+    getList("karma", 1).then((quotes) => {
       setMostLikedQuotes(quotes);
-      setCurrentPageKarma(currentPageKarma + 1);
+      setCurrentPageKarma(2);
     });
     if (jwt !== "") {
-      setCurrentPageNewest(1);
-      getList("newest", currentPageNewest).then((quotes) => {
+      getList("newest", 1).then((quotes) => {
         setNewestQuotes(quotes);
-        setCurrentPageNewest(currentPageNewest + 1);
+        setCurrentPageNewest(2);
       });
     }
   }, [jwt]);
 
-  function loadMore(list: string) {}
+  function loadMore(list: string) {
+    if (list === "karma") {
+      getList("karma", currentPageKarma).then((quotes) => {
+        setMostLikedQuotes(mostLikedQuotes.concat(quotes));
+        if (quotes.length !== 0) setCurrentPageKarma(currentPageKarma + 1);
+      });
+    } else {
+      getList("newest", currentPageNewest).then((quotes) => {
+        setNewestQuotes(newestQuotes.concat(quotes));
+        if (quotes.length !== 0) setCurrentPageNewest(currentPageNewest + 1);
+      });
+    }
+  }
 
   if (jwt === "")
     return (
