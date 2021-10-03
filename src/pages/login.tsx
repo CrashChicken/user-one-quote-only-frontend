@@ -28,7 +28,7 @@ const LoginPage: React.FC = () => {
     setIsLoading(true);
     setIsError(false);
 
-    login({ username: email, password })
+    login({ email, password })
       .then(({ access_token }) => {
         setJwt(access_token);
 

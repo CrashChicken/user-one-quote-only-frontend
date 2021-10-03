@@ -22,7 +22,7 @@ const RegisterPage: React.FC = () => {
     setIsLoading(true);
     setIsError(false);
 
-    register({ username: email, password, firstName, lastName })
+    register({ email, password, firstName, lastName })
       .then(() => {
         setRedirect(true);
       })

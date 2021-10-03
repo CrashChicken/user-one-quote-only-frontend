@@ -3,14 +3,14 @@ import axios from "axios";
 const api = axios.create({ baseURL: "http://localhost:3001/" });
 
 interface Register {
-  username: string;
+  email: string;
   password: string;
   firstName: string;
   lastName: string;
 }
 
 interface Login {
-  username: string;
+  email: string;
   password: string;
 }
 
@@ -25,11 +25,19 @@ interface UpdatePassword {
 interface MyQuoteRes {
   id: number;
   quote: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface UserRes {
   id: number;
-  username: string;
+  firstName: string;
+  lastName: string;
+}
+
+interface UserWithEmailRes {
+  id: number;
+  email: string;
   firstName: string;
   lastName: string;
 }
@@ -38,12 +46,9 @@ export interface QuoteRes {
   id: number;
   quote: string;
   karma: number;
+  createdAt: string;
+  updatedAt: string;
   user: UserRes;
-}
-
-interface MyQuoteRes {
-  id: number;
-  quote: string;
 }
 
 interface GetUserRes {
@@ -60,13 +65,13 @@ interface VoteCheckRes {
   vote: number;
 }
 
-export const register = (user: Register): Promise<UserRes> =>
+export const register = (user: Register): Promise<UserWithEmailRes> =>
   api.post("/register", user).then((res) => res.data);
 
 export const login = (user: Login): Promise<LoginRes> =>
   api.post("/login", user).then((res) => res.data);
 
-export const getMe = (token: string): Promise<UserRes> =>
+export const getMe = (token: string): Promise<UserWithEmailRes> =>
   api
     .get("/me", { headers: { Authorization: `Bearer ${token}` } })
     .then((res) => res.data);
