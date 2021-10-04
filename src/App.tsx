@@ -15,7 +15,7 @@ const App: React.FC = () => {
       <Router>
         <Header />
         <Switch>
-          <Route path="/profile">
+          <Route path="/profile/:id">
             <ProfilePage />
           </Route>
           <Route path="/login">

@@ -48,7 +48,7 @@ export const SubmitButton: React.FC<SubmitButtonProps> = ({
 }) => {
   return (
     <input
-      className={getClassName(alternative, className)} //"rounded-full text-center px-4 py-2 bg-gradient-to-r from-primary to-secondary text-white cursor-pointer"
+      className={getClassName(alternative, className)}
       type="submit"
       value={value}
     />
@@ -56,5 +56,33 @@ export const SubmitButton: React.FC<SubmitButtonProps> = ({
 };
 
 SubmitButton.defaultProps = {
+  alternative: false,
+};
+
+interface ButtonProps {
+  text: string;
+  alternative?: boolean;
+  className?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+}
+
+export const Button: React.FC<ButtonProps> = ({
+  text,
+  alternative,
+  className,
+  onClick,
+}) => {
+  return (
+    <button
+      className={getClassName(alternative, className)}
+      type="submit"
+      onClick={onClick}
+    >
+      {text}
+    </button>
+  );
+};
+
+Button.defaultProps = {
   alternative: false,
 };

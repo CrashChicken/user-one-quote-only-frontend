@@ -3,14 +3,14 @@ import axios from "axios";
 const api = axios.create({ baseURL: "http://localhost:3001/" });
 
 interface Register {
-  username: string;
+  email: string;
   password: string;
   firstName: string;
   lastName: string;
 }
 
 interface Login {
-  username: string;
+  email: string;
   password: string;
 }
 
@@ -22,65 +22,135 @@ interface UpdatePassword {
   password: string;
 }
 
-interface QuoteRes {
+interface MyQuoteRes {
   id: number;
   quote: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
-interface GetMeRes {
+interface UserRes {
   id: number;
-  username: string;
   firstName: string;
   lastName: string;
+}
+
+interface UserWithEmailRes {
+  id: number;
+  email: string;
+  firstName: string;
+  lastName: string;
+}
+
+export interface QuoteRes {
+  id: number;
+  quote: string;
+  karma: number;
+  createdAt: string;
+  updatedAt: string;
+  user: UserRes;
+}
+
+interface GetUserRes {
+  quote: QuoteRes;
+  votes: [QuoteRes];
 }
 
 interface LoginRes {
   access_token: string;
 }
 
-export const register = (user: Register) =>
+interface VoteCheckRes {
+  userId: number;
+  vote: number;
+}
+
+export const register = (user: Register): Promise<UserWithEmailRes> =>
   api.post("/register", user).then((res) => res.data);
 
 export const login = (user: Login): Promise<LoginRes> =>
   api.post("/login", user).then((res) => res.data);
 
-export const getMe = (token: string): Promise<GetMeRes> =>
+export const getMe = (token: string): Promise<UserWithEmailRes> =>
   api
     .get("/me", { headers: { Authorization: `Bearer ${token}` } })
     .then((res) => res.data);
 
-export const getMyQuote = (token: string): Promise<QuoteRes> =>
+export const getMyQuote = (token: string): Promise<MyQuoteRes> =>
   api
     .get("/myquote", { headers: { Authorization: `Bearer ${token}` } })
     .then((res) => res.data);
 
-export const updateMyQuote = (quote: Quote, token: string): Promise<QuoteRes> =>
+export const postMyQuote = (quote: Quote, token: string): Promise<MyQuoteRes> =>
+  api
+    .post("/myquote", quote, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res) => res.data);
+
+export const updateMyQuote = (
+  quote: Quote,
+  token: string
+): Promise<MyQuoteRes> =>
   api
     .put("/myquote", quote, { headers: { Authorization: `Bearer ${token}` } })
     .then((res) => res.data);
 
-export const updatePassword = (password: UpdatePassword, token: string) =>
+export const updatePassword = (
+  password: UpdatePassword,
+  token: string
+): Promise<UserRes> =>
   api
     .put("/me/update-password", password, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((res) => res.data);
 
-export const getUser = (id: number) =>
+export const getUser = (id: number): Promise<GetUserRes> =>
   api.get(`/user/${id}/`).then((res) => res.data);
 
-export const upvoteUser = (id: number, token: string) =>
+export const upvoteUser = (id: number, token: string): Promise<QuoteRes> =>
   api
-    .put(`/user/${id}/upvote`, {
+    .put(
+      `/user/${id}/upvote`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
+    .then((res) => res.data);
+
+export const downvoteUser = (id: number, token: string): Promise<QuoteRes> =>
+  api
+    .put(
+      `/user/${id}/downvote`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
+    .then((res) => res.data);
+
+export const deleteVote = (id: number, token: string): Promise<QuoteRes> =>
+  api
+    .delete(`/user/${id}/vote`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((res) => res.data);
 
-export const downvoteUser = (id: number, token: string) =>
+export const voteCheck = (id: number, token: string): Promise<VoteCheckRes> =>
   api
-    .put(`/user/${id}/downvote`, {
+    .get(`/user/${id}/vote`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((res) => res.data);
 
-export const getList = () => api.get(`/list`).then((res) => res.data);
+export const getList = (sort: string, page: number): Promise<QuoteRes[]> =>
+  api
+    .get(`/list`, {
+      params: {
+        sort,
+        page,
+      },
+    })
+    .then((res) => res.data);

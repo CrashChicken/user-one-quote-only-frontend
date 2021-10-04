@@ -21,8 +21,8 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ handleClose }) => {
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    getMe(jwt).then(({ username, firstName, lastName }) => {
-      setEmail(username);
+    getMe(jwt).then(({ email, firstName, lastName }) => {
+      setEmail(email);
       setFirstName(firstName);
       setLastName(lastName);
     });

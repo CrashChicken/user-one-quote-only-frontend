@@ -12,8 +12,15 @@ import ProfileModal from "../ProfileModal";
 import { useAuth } from "../../../contexts/AuthContext";
 
 const Header: React.FC = () => {
-  const { firstName, lastName, setJwt, setUserId, setFirstName, setLastName } =
-    useAuth();
+  const {
+    userId,
+    firstName,
+    lastName,
+    setJwt,
+    setUserId,
+    setFirstName,
+    setLastName,
+  } = useAuth();
 
   const [mobileMenu, setMobileMenu] = useState(false);
   const [createModal, setCreateModal] = useState(false);
@@ -47,8 +54,19 @@ const Header: React.FC = () => {
       {redirect && <Redirect to="/" />}
       {createModal && <CreateModal handleClose={createModalClose} />}
       {profileModal && <ProfileModal handleClose={profileModalClose} />}
-      <div className="md:flex flex-nowrap justify-between items-center p-8 hidden">
-        <Logo />
+      <div
+        className={
+          (useRouteMatch({ path: "/profile/:id", exact: true })
+            ? "bg-gradient-to-r from-primary to-secondary "
+            : "") +
+          "md:flex flex-nowrap justify-between items-center p-8 hidden"
+        }
+      >
+        <Logo
+          alternative={
+            useRouteMatch({ path: "/profile/:id", exact: true }) ? true : false
+          }
+        />
         <div className="flex flex-row items-center">
           {!useRouteMatch({ path: "/register", exact: true }) && !firstName && (
             <LinkButton path="/register" text="Sign up" />
@@ -66,18 +84,19 @@ const Header: React.FC = () => {
               <Link to="/" className="mr-5 text-white">
                 Home
               </Link>
-              <Link to="/" className="mr-5 text-white">
+              <button className="mr-5 text-white" onClick={profileModalOpen}>
                 Settings
-              </Link>
+              </button>
               <button className="mr-5 text-white" onClick={logout}>
                 Logout
               </button>
-              <img
-                onClick={profileModalOpen}
-                src="profile.png"
-                alt=""
-                className="h-12 w-12 mr-5 rounded-full cursor-pointer"
-              />
+              <Link to={"/profile/" + userId}>
+                <img
+                  src="profile.png"
+                  alt=""
+                  className="h-12 w-12 mr-5 rounded-full cursor-pointer"
+                />
+              </Link>
               <button
                 className="h-12 w-12 flex items-center justify-center bg-white rounded-full"
                 onClick={createModalOpen}

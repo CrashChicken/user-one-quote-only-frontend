@@ -1,5 +1,6 @@
+import { AxiosError } from "axios";
 import React, { useEffect, useState } from "react";
-import { getMyQuote, updateMyQuote } from "../../api/quotesApi";
+import { getMyQuote, postMyQuote, updateMyQuote } from "../../api/quotesApi";
 import { useAuth } from "../../contexts/AuthContext";
 import Backdrop from "./Backdrop";
 import { SubmitButton } from "./Button";
@@ -14,11 +15,15 @@ const CreateModal: React.FC<CreateModalProps> = ({ handleClose }) => {
   const [isLoadingError, setIsLoadingError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [isNew, setIsNew] = useState(false);
 
   useEffect(() => {
     getMyQuote(jwt)
       .then(({ quote }) => setQuote(quote))
-      .catch(() => setIsLoadingError(true));
+      .catch((error: AxiosError) => {
+        if (error.response?.status === 404) setIsNew(true);
+        else setIsLoadingError(true);
+      });
   }, [jwt]);
 
   function quoteSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -27,14 +32,25 @@ const CreateModal: React.FC<CreateModalProps> = ({ handleClose }) => {
     setIsLoading(true);
     setIsError(false);
 
-    updateMyQuote({ quote }, jwt)
-      .then(() => {
-        handleClose();
-      })
-      .catch(() => {
-        setIsLoading(false);
-        setIsError(true);
-      });
+    if (isNew) {
+      postMyQuote({ quote }, jwt)
+        .then(() => {
+          handleClose();
+        })
+        .catch(() => {
+          setIsLoading(false);
+          setIsError(true);
+        });
+    } else {
+      updateMyQuote({ quote }, jwt)
+        .then(() => {
+          handleClose();
+        })
+        .catch(() => {
+          setIsLoading(false);
+          setIsError(true);
+        });
+    }
   }
 
   return (
